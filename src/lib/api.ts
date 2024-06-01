@@ -4,12 +4,12 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios'
+import { User } from 'next-auth'
 
 import { atomStore } from '@/components/providers/jotai'
 
 import { userAtom } from './atom/auth'
 import { env } from './env'
-import { User } from 'next-auth'
 
 const baseURL = env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_URL
 

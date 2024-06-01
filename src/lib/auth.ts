@@ -1,4 +1,4 @@
-import { type NextAuthOptions, type User } from 'next-auth'
+import { getServerSession, type NextAuthOptions, type User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
 import { signInUser } from '@/lib/actions/auth'
@@ -79,3 +79,10 @@ export const authOptions = {
     },
   },
 } satisfies NextAuthOptions
+
+/**
+ * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
+ *
+ * @see https://next-auth.js.org/configuration/nextjs
+ */
+export const getServerAuthSession = () => getServerSession(authOptions)
