@@ -15,7 +15,7 @@ export const currentUser = async () => {
   return session?.user
 }
 
-export function signUpUser(data: SignUpUser) {
+export function RegisterUser(data: SignUpUser) {
   return api.post<RawUser>('/api/auth/local/register', {
     birthday: dateFns.format(data.birthday, 'yyyy-MM-dd'),
     email: data.email,
@@ -26,7 +26,7 @@ export function signUpUser(data: SignUpUser) {
   })
 }
 
-export function signInUser(data: SignInUser) {
+export function loginUser(data: SignInUser) {
   return api.post<RawUser>('/api/auth/local', {
     identifier: data.email,
     password: data.password,

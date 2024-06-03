@@ -19,11 +19,7 @@ export function numericEnum<TValues extends readonly number[]>(
 
 export const pageSizeSchema = numericEnum(PAGE_SIZE_OPTIONS).default(20)
 
-export const limitSchema = pageSizeSchema
-
 export type PageSize = z.infer<typeof pageSizeSchema>
-
-export type Limit = PageSize
 
 export const pageSchema = z.number().default(1)
 

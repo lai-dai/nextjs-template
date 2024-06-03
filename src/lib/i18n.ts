@@ -5,7 +5,7 @@ import { getRequestConfig } from 'next-intl/server'
 import { siteConfig } from '@/config/site'
 import { LocalizedNavItem } from '@/lib/types/nav'
 
-const { locales, localePrefix, defaultNav } = siteConfig
+const { locales, localePrefix } = siteConfig
 
 export type Languages = (typeof locales)[number]
 

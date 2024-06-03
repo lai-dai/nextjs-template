@@ -2,7 +2,7 @@ import axios from 'axios'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-import { env } from './env'
+import { env } from './env.js'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

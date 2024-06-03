@@ -9,23 +9,21 @@ import { User } from 'next-auth'
 import { atomStore } from '@/components/providers/jotai'
 
 import { userAtom } from './atom/auth'
-import { env } from './env'
+import { env } from './env.js'
 
-const baseURL = env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_URL
+const baseURL = env.NEXT_PUBLIC_API_URL
 
 export const api = axios.create({
   baseURL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
   // withCredentials: true,
 })
 
 // For Make Log on Develop Mode
-const devLog = (message: string) => {
+const devLog = (message: string, isError?: boolean) => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-console
-    console.log('%c' + message, 'color:blue;')
+    console.log('%c' + message, isError ? 'color:red;' : 'color:blue;')
   }
 }
 
@@ -60,7 +58,10 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
   // Set Loading End Here
   // Handle Response Data Here
   // Error Handling When Return Success with Error Code Here
-  devLog(`✅✅✅ [API] ${method?.toUpperCase()} ${url} | Response ${status}`)
+  devLog(
+    `✅✅✅ [API] ${method?.toUpperCase()} ${url} | Response ${status}`,
+    true
+  )
 
   return response
 }
@@ -72,7 +73,8 @@ const onErrorResponse = (error: AxiosError | Error): Promise<AxiosError> => {
     const { status } = (error.response as AxiosResponse) ?? {}
 
     devLog(
-      `💥💥💥 [API] (axios) ${method?.toUpperCase()} ${url} | Error ${status} ${message}`
+      `💥💥💥 [API] (axios) ${method?.toUpperCase()} ${url} | Error ${status} ${message}`,
+      true
     )
 
     switch (status) {
@@ -101,7 +103,7 @@ const onErrorResponse = (error: AxiosError | Error): Promise<AxiosError> => {
     return Promise.reject(error)
   }
 
-  devLog(`💥 [API] | Error ${error.message}`)
+  devLog(`💥 [API] | Error ${error.message}`, true)
 
   return Promise.reject(error)
 }

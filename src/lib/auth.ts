@@ -1,7 +1,7 @@
 import { getServerSession, type NextAuthOptions, type User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
-import { signInUser } from '@/lib/actions/auth'
+import { loginUser } from '@/lib/actions/auth'
 import { env } from '@/lib/env'
 import { getErrorMessage } from '@/lib/utils'
 import { SignInUser } from '@/lib/validations/auth'
@@ -38,7 +38,7 @@ export const authOptions = {
       async authorize(credentials): Promise<User | null> {
         try {
           const { email, password } = credentials as SignInUser
-          const { data } = await signInUser({ email, password })
+          const { data } = await loginUser({ email, password })
 
           const user = { ...data.user, token: data.jwt }
 
